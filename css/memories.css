@@ -1,0 +1,206 @@
+/* =========================================================
+   Our Memories — scrapbook-style single-viewport slideshow.
+   Loaded after css/style.css (shares variables, fonts, balloons,
+   heart-trail, and ambient-particle styling from there).
+   ========================================================= */
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+body.memories-page {
+  /* warm scrapbook-page paper: soft dotted texture over a cream wash */
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(214, 51, 108, 0.08) 1px, transparent 0);
+  background-size: 24px 24px;
+  background-color: #fff8ef;
+}
+
+.memories-wrap {
+  position: relative; z-index: 3;
+  height: 100vh; height: 100dvh;
+  display: flex; flex-direction: column;
+  padding-top: env(safe-area-inset-top);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+  box-sizing: border-box;
+}
+
+/* ---------------- Header ---------------- */
+.mem-header {
+  flex: 0 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 22px 8px;
+  gap: 12px;
+}
+.mem-header h1 {
+  font-family: var(--font-script);
+  font-size: clamp(1.5rem, 4vw, 2.4rem);
+  color: var(--pink-4);
+  text-align: center;
+  flex: 1;
+}
+.mem-back {
+  flex: 0 0 auto;
+  text-decoration: none; color: var(--pink-4); font-weight: 700;
+  background: #fff; padding: 8px 16px; border-radius: 30px;
+  box-shadow: 0 6px 16px var(--shadow);
+  font-size: 0.85rem;
+  transition: transform 0.2s ease;
+}
+.mem-back:hover { transform: translateX(-3px); }
+.mem-icon-btn {
+  flex: 0 0 auto;
+  width: 40px; height: 40px; border-radius: 50%; border: none;
+  background: #fff; box-shadow: 0 6px 16px var(--shadow);
+  color: var(--pink-4); font-size: 0.9rem; cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.mem-icon-btn:hover { transform: scale(1.08); }
+.mem-icon-btn.active { background: var(--pink-3); color: #fff; }
+
+/* ---------------- Stage ---------------- */
+.mem-stage {
+  flex: 1 1 auto; min-height: 0;
+  display: flex; align-items: center; justify-content: center;
+  gap: clamp(8px, 2vw, 22px);
+  padding: 10px 16px;
+}
+.mem-arrow {
+  flex: 0 0 auto;
+  width: clamp(38px, 6vw, 54px); height: clamp(38px, 6vw, 54px);
+  border-radius: 50%; border: none;
+  background: #fff; color: var(--pink-4);
+  font-size: clamp(0.9rem, 1.6vw, 1.2rem); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 8px 20px var(--shadow);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.mem-arrow:hover { transform: scale(1.1); background: var(--pink-1); }
+.mem-arrow:disabled { opacity: 0.35; cursor: default; transform: none; }
+
+/* ---------------- Polaroid card ---------------- */
+.mem-frame {
+  position: relative;
+  flex: 1 1 auto; min-width: 0;
+  height: 100%; max-width: 780px;
+  display: flex; flex-direction: column;
+  background: #fffdfa;
+  padding: 14px 14px 0;
+  border-radius: 3px;
+  box-shadow:
+    0 2px 0 #fff, 0 4px 0 rgba(0,0,0,0.03), 0 10px 0 -2px #fff,
+    0 22px 40px rgba(60, 20, 40, 0.22);
+  transform: rotate(var(--tilt, -1.5deg));
+  transition: transform 0.4s ease;
+}
+.mem-frame.tilt-a { --tilt: -2.2deg; }
+.mem-frame.tilt-b { --tilt: 1.8deg; }
+.mem-frame.tilt-c { --tilt: -1deg; }
+
+/* washi tape corners */
+.mem-tape {
+  position: absolute; top: -12px; width: 78px; height: 28px;
+  background: linear-gradient(120deg, rgba(255, 244, 195, 0.9), rgba(255, 228, 140, 0.75));
+  box-shadow: 0 3px 6px rgba(0,0,0,0.18);
+  z-index: 2;
+}
+.mem-tape-l { left: -16px; transform: rotate(-40deg); }
+.mem-tape-r { right: -16px; transform: rotate(38deg); }
+
+.mem-photo-area {
+  position: relative;
+  flex: 1 1 auto; min-height: 0;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+  background: repeating-linear-gradient(135deg, #faf3ea, #faf3ea 10px, #f5ece0 10px, #f5ece0 20px);
+  border-radius: 1px;
+}
+.mem-photo-area img {
+  max-width: 100%; max-height: 100%; width: auto; height: auto;
+  object-fit: contain; opacity: 0; position: relative; z-index: 1;
+}
+.mem-frame.has-photo .mem-photo-area img { opacity: 1; }
+
+.mem-empty {
+  position: absolute; inset: 0; z-index: 2;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 10px; color: var(--pink-4); font-weight: 600;
+  cursor: pointer;
+}
+.mem-frame.has-photo .mem-empty { display: none; }
+.mem-empty .plus { font-size: clamp(2rem, 6vw, 3rem); }
+.mem-empty p { font-size: clamp(0.85rem, 2vw, 1.05rem); }
+
+/* contained sparkle layer — sits above the photo but stays subtle */
+.mem-sparkles {
+  position: absolute; inset: 0; z-index: 3;
+  pointer-events: none; overflow: hidden;
+}
+
+/* handwritten caption strip, like the bottom margin of a polaroid */
+.mem-caption {
+  flex: 0 0 auto;
+  padding: 10px 6px 16px;
+  text-align: center;
+  font-family: var(--font-script);
+  color: var(--pink-4);
+  font-size: clamp(1rem, 2.6vw, 1.35rem);
+  visibility: hidden;
+}
+.mem-frame.has-photo .mem-caption { visibility: visible; }
+
+/* ---------------- Footer / thumbnail strip ---------------- */
+.mem-footer {
+  flex: 0 0 auto;
+  padding: 8px 18px calc(12px + env(safe-area-inset-bottom));
+}
+.thumb-strip {
+  display: flex; gap: 12px;
+  overflow-x: auto; overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  padding: 6px 4px 8px;
+  scrollbar-width: thin;
+}
+.thumb-strip::-webkit-scrollbar { height: 6px; }
+
+.thumb {
+  position: relative; flex: 0 0 auto;
+  width: clamp(46px, 8.5vw, 64px); height: clamp(46px, 8.5vw, 64px);
+  background: #fff; padding: 3px 3px 6px;
+  border-radius: 3px; cursor: pointer;
+  box-shadow: 0 3px 8px rgba(60, 20, 40, 0.18);
+  transform: rotate(var(--thumb-tilt, 0deg));
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.thumb:nth-child(3n) { --thumb-tilt: -4deg; }
+.thumb:nth-child(3n+1) { --thumb-tilt: 3deg; }
+.thumb:nth-child(3n+2) { --thumb-tilt: -2deg; }
+.thumb img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 1px; }
+.thumb.active { box-shadow: 0 0 0 2px var(--pink-4), 0 6px 14px rgba(60,20,40,0.25); transform: rotate(0deg) translateY(-4px); }
+.thumb:hover { transform: rotate(0deg) translateY(-3px); }
+
+/* ---------------- Small / short screens ---------------- */
+@media (max-width: 480px) {
+  .mem-header { padding: 14px 14px 6px; }
+  .mem-header h1 { font-size: 1.3rem; }
+  .mem-back { padding: 7px 12px; font-size: 0.78rem; }
+  .mem-stage { padding: 6px 6px; gap: 6px; }
+  .mem-frame { padding: 10px 10px 0; }
+  .mem-tape { width: 56px; height: 22px; }
+  .mem-footer { padding: 6px 12px calc(10px + env(safe-area-inset-bottom)); }
+}
+
+@media (max-height: 560px) {
+  .mem-header { padding: 10px 18px 4px; }
+  .mem-header h1 { font-size: 1.15rem; }
+  .thumb { width: 44px; height: 44px; }
+  .mem-footer { padding: 6px 18px calc(8px + env(safe-area-inset-bottom)); }
+  .mem-caption { padding: 6px 6px 10px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mem-back, .mem-arrow, .thumb, .mem-frame { transition: none; }
+}

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, viewport-fit=cover" />
+<title>Happy Anniversary, My Love 💕</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💗</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ================= QUIZ GATE ================= -->
+  <div id="quiz-gate" class="quiz-gate">
+    <div class="quiz-card">
+      <div class="quiz-progress" id="quiz-progress"></div>
+      <p class="quiz-emoji">💗</p>
+      <h2 id="quiz-question">Loading...</h2>
+      <div class="quiz-choices" id="quiz-choices"></div>
+      <p class="quiz-feedback" id="quiz-feedback"></p>
+    </div>
+  </div>
+  <script>
+    // avoid flashing the quiz at a returning visitor who already solved it
+    if (localStorage.getItem("anniversary_quiz_passed") === "true") {
+      document.getElementById("quiz-gate").classList.add("passed-instant");
+    }
+  </script>
+
+  <!-- Preloader -->
+  <div id="preloader">
+    <div class="loader-heart">💗</div>
+    <p>loading our love story...</p>
+  </div>
+
+  <!-- Interactive balloons + floaty hearts canvas (reacts to cursor) -->
+  <canvas id="balloon-canvas"></canvas>
+
+  <!-- cute cursor trail hearts spawn here -->
+  <div id="heart-trail-container"></div>
+
+  <!-- ambient floating hearts / flowers / sparkles drifting across the background -->
+  <div id="ambient-particles"></div>
+
+  <!-- side dot navigation (desktop) -->
+  <nav class="dot-nav" id="dot-nav">
+    <a href="#hero" data-label="Hello"></a>
+    <a href="#counter" data-label="Us"></a>
+    <a href="#quotes" data-label="Sweet Nothings"></a>
+    <a href="#memories" data-label="Memories"></a>
+    <a href="#story" data-label="Story"></a>
+    <a href="#letter" data-label="Letter"></a>
+    <a href="#surprise" data-label="Surprise"></a>
+  </nav>
+
+  <!-- bottom dot navigation (mobile) -->
+  <nav class="mobile-nav" id="mobile-nav">
+    <a href="#hero">💗</a>
+    <a href="#counter">⏳</a>
+    <a href="#quotes">💬</a>
+    <a href="#memories">📷</a>
+    <a href="#story">📖</a>
+    <a href="#letter">💌</a>
+    <a href="#surprise">🎁</a>
+  </nav>
+
+  <button id="music-toggle" title="Play our song">🎵</button>
+
+  <!-- ================= HERO ================= -->
+  <section id="hero">
+    <div class="hero-content">
+      <p class="pretitle">✨ For the girl who has my whole heart ✨</p>
+      <h1 class="hero-title">Happy Anniversary,<br /><span id="partner-name">My Love</span></h1>
+      <p class="hero-sub" id="hero-subtitle">Every day with you feels like the best chapter of my favorite story.</p>
+      <a href="#counter" class="scroll-cue">
+        <span>scroll down</span>
+        <div class="mouse"><div class="wheel"></div></div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ================= COUNTER ================= -->
+  <section id="counter">
+    <h2 class="section-title">Us, In Numbers</h2>
+    <p class="section-sub">Since <span id="anniversary-date-label">the day you said yes</span>, we've shared...</p>
+    <div class="counter-grid">
+      <div class="counter-box"><span id="c-years">0</span><small>Years</small></div>
+      <div class="counter-box"><span id="c-months">0</span><small>Months</small></div>
+      <div class="counter-box"><span id="c-days">0</span><small>Days</small></div>
+      <div class="counter-box"><span id="c-hours">0</span><small>Hours</small></div>
+      <div class="counter-box"><span id="c-mins">0</span><small>Minutes</small></div>
+      <div class="counter-box"><span id="c-secs">0</span><small>Seconds</small></div>
+    </div>
+    <p class="counter-caption">...and I'd happily count a thousand more with you. 💞</p>
+  </section>
+
+  <!-- ================= SWEET NOTHINGS SLIDESHOW ================= -->
+  <section id="quotes">
+    <h2 class="section-title">Sweet Nothings</h2>
+    <p class="section-sub">A little slideshow, just for you</p>
+    <div class="quote-slideshow" id="quote-slideshow">
+      <div class="quote-track" id="quote-track">
+        <!-- slides injected by JS -->
+      </div>
+      <button class="q-arrow q-prev" id="q-prev" aria-label="Previous">&#10094;</button>
+      <button class="q-arrow q-next" id="q-next" aria-label="Next">&#10095;</button>
+      <div class="quote-dots" id="quote-dots"></div>
+    </div>
+  </section>
+
+  <!-- ================= MEMORIES TEASER ================= -->
+  <section id="memories">
+    <h2 class="section-title">Our Memories</h2>
+    <p class="section-sub">A whole scrapbook of us is waiting — just one click away.</p>
+    <a href="memories.html" class="memories-btn">
+      <span class="btn-heart">💌</span>
+      <span>Click Here</span>
+      <span class="btn-sub">to see all our memories</span>
+    </a>
+  </section>
+
+  <!-- ================= STORY / TIMELINE ================= -->
+  <section id="story">
+    <h2 class="section-title">Our Story So Far</h2>
+    <div class="timeline" id="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot">💘</div>
+        <div class="timeline-card">
+          <h3>The Day We Met</h3>
+          <p>Edit this in <code>js/script.js</code> (storyEvents) — tell the story of how it all began.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot">🌹</div>
+        <div class="timeline-card">
+          <h3>Our First Date</h3>
+          <p>Add the little details that made it unforgettable.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot">💍</div>
+        <div class="timeline-card">
+          <h3>Becoming "Us"</h3>
+          <p>The moment you knew this was something special.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot">💗</div>
+        <div class="timeline-card">
+          <h3>Today &amp; Always</h3>
+          <p>Still falling for you, every single day.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= LOVE LETTER ================= -->
+  <section id="letter">
+    <h2 class="section-title">A Little Letter For You</h2>
+    <p class="section-sub">Tap the envelope</p>
+    <div class="envelope" id="envelope">
+      <div class="envelope-back"></div>
+      <div class="envelope-letter" id="envelope-letter">
+        <p id="letter-text"></p>
+        <p class="letter-sign">Forever yours,<br />You know who 💌</p>
+      </div>
+      <div class="envelope-front">
+        <div class="envelope-flap"></div>
+      </div>
+      <div class="envelope-heart-seal">💗</div>
+    </div>
+  </section>
+
+  <!-- ================= SURPRISE ================= -->
+  <section id="surprise">
+    <h2 class="section-title">One More Thing...</h2>
+    <p class="section-sub" id="surprise-msg">Tap the heart for a little surprise 🎉</p>
+    <button id="surprise-btn">💖</button>
+  </section>
+
+  <footer>
+    <p>Made with 💗 by someone who loves you very, very much.</p>
+    <p class="footer-small" id="footer-date"></p>
+  </footer>
+
+  <!-- optional background music: drop a file named song.mp3 into an "audio" folder and it will just work -->
+  <audio id="bg-music" src="audio/song.mp3"></audio>
+
+  <script src="js/balloons.js"></script>
+  <script src="js/particles.js"></script>
+  <script src="js/quiz.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, viewport-fit=cover" />
+<title>Our Memories 💕</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💗</text></svg>" />
+<script>
+  // this page is part of the surprise — no quiz, no entry
+  if (localStorage.getItem("anniversary_quiz_passed") !== "true") {
+    location.replace("index.html");
+  }
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="css/memories.css" />
+</head>
+<body class="memories-page">
+
+  <!-- Interactive balloons + floaty hearts canvas (reacts to cursor), same as the main page -->
+  <canvas id="balloon-canvas"></canvas>
+  <div id="heart-trail-container"></div>
+  <div id="ambient-particles"></div>
+
+  <div class="memories-wrap">
+    <header class="mem-header">
+      <a href="index.html" class="mem-back">&larr; Back</a>
+      <h1>Our Memories</h1>
+      <button id="mem-autoplay" class="mem-icon-btn" title="Autoplay slideshow">▶</button>
+    </header>
+
+    <div class="mem-stage" id="mem-stage">
+      <button class="mem-arrow mem-prev" id="mem-prev" aria-label="Previous photo">&#10094;</button>
+
+      <div class="mem-frame" id="mem-frame">
+        <div class="mem-tape mem-tape-l"></div>
+        <div class="mem-tape mem-tape-r"></div>
+        <div class="mem-photo-area">
+          <img id="mem-img" alt="a favorite memory" />
+          <div class="mem-empty" id="mem-empty">
+            <span class="plus">💗</span>
+            <p>No memories found</p>
+          </div>
+          <!-- contained sparkle layer: floats in front of the photo, kept subtle/transparent -->
+          <div class="mem-sparkles" id="mem-sparkles"></div>
+        </div>
+        <div class="mem-caption" id="mem-caption"></div>
+      </div>
+
+      <button class="mem-arrow mem-next" id="mem-next" aria-label="Next photo">&#10095;</button>
+    </div>
+
+    <footer class="mem-footer">
+      <div class="thumb-strip" id="thumb-strip">
+        <!-- thumbnails injected by JS -->
+      </div>
+    </footer>
+  </div>
+
+  <script src="js/balloons.js"></script>
+  <script src="js/particles.js"></script>
+  <script src="js/memories.js"></script>
+</body>
+</html>
