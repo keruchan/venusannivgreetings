@@ -21,10 +21,10 @@ Sana wag kana rin magalit sakin ng madalas kasi marami na kong iniisip, gusto ko
 I love you more today than yesterday, and I'll love you even more tomorrow.`,
 
   storyEvents: [
-    { emoji: "💘", title: "The Day We Met", text: "Edit this in js/script.js (storyEvents) — tell the story of how it all began." },
-    { emoji: "🌹", title: "Our First Date", text: "Add the little details that made it unforgettable." },
-    { emoji: "💍", title: 'Becoming "Us"', text: "The moment you knew this was something special." },
-    { emoji: "💗", title: "Today & Always", text: "Still falling for you, every single day." },
+    { emoji: "💘", title: "The Day We Met", text: "Nagtatrabaho ka sa tapat ng pinagtatrabahuan ko haha Don kita nakita" },
+    { emoji: "🌹", title: "Our First Date", text: "Inaya moko sa fiesta ng paete. Naks! nakawafu! haha" },
+    { emoji: "💍", title: 'Becoming "Us"', text: "Sinagot moko sa daan pa 3 crus <3." },
+    { emoji: "💗", title: "Today & Always", text: "Hanggang ngayon ikaw parin, still the same love eversince." },
   ],
 
   surpriseMessages: [
@@ -42,8 +42,6 @@ I love you more today than yesterday, and I'll love you even more tomorrow.`,
     "Miss na miss na po kita! mwa.",
   ],
 
-  // Songs play in this order, looping back to the first after the last.
-  musicPlaylist: ["audio/song.mp3", "audio/song2.mp3"],
 };
 
 /* ---------------------------------------------------------
@@ -268,70 +266,6 @@ document.getElementById("footer-date").textContent =
       msg.textContent = random;
       msg.style.opacity = 1;
     }, 200);
-  });
-})();
-
-/* ===========================================================
-   MUSIC — auto-plays through CONFIG.musicPlaylist in order,
-   looping back to the first song after the last one finishes.
-   Browsers block audio until the visitor interacts with the
-   page at least once, so we try immediately and, if blocked,
-   retry on her first tap/click/keypress (answering the quiz
-   counts).
-=========================================================== */
-(function music() {
-  const btn = document.getElementById("music-toggle");
-  const audio = document.getElementById("bg-music");
-  const playlist = CONFIG.musicPlaylist && CONFIG.musicPlaylist.length
-    ? CONFIG.musicPlaylist
-    : [audio.getAttribute("src")].filter(Boolean);
-  let trackIndex = 0;
-  let playing = false;
-
-  if (playlist.length) audio.src = playlist[trackIndex];
-
-  audio.addEventListener("ended", () => {
-    trackIndex = (trackIndex + 1) % playlist.length;
-    audio.src = playlist[trackIndex];
-    audio.play().catch(() => {});
-  });
-
-  function setPlayingUI(isPlaying) {
-    playing = isPlaying;
-    btn.classList.toggle("playing", isPlaying);
-    btn.textContent = isPlaying ? "🎶" : "🎵";
-  }
-
-  function startPlaying() {
-    if (playing || !playlist.length) return Promise.resolve();
-    return audio.play().then(() => setPlayingUI(true));
-  }
-
-  btn.addEventListener("click", () => {
-    if (!playing) {
-      startPlaying().catch(() => {
-        btn.textContent = "🔇";
-        setTimeout(() => (btn.textContent = "🎵"), 1200);
-      });
-    } else {
-      audio.pause();
-      setPlayingUI(false);
-    }
-  });
-
-  // try to start right away; if the browser blocks it, start on her first
-  // interaction with the page instead (quiz answers count)
-  startPlaying().catch(() => {
-    const tryOnInteraction = () => {
-      startPlaying().finally(() => {
-        document.removeEventListener("click", tryOnInteraction);
-        document.removeEventListener("touchstart", tryOnInteraction);
-        document.removeEventListener("keydown", tryOnInteraction);
-      });
-    };
-    document.addEventListener("click", tryOnInteraction, { once: true });
-    document.addEventListener("touchstart", tryOnInteraction, { once: true });
-    document.addEventListener("keydown", tryOnInteraction, { once: true });
   });
 })();
 

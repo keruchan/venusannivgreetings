@@ -192,7 +192,6 @@ img { max-width: 100%; display: block; }
 .mobile-nav a.active { background: var(--pink-1); transform: scale(1.15); }
 @media (max-width: 720px) {
   .mobile-nav { display: flex; }
-  #music-toggle { bottom: calc(74px + env(safe-area-inset-bottom)); }
 }
 
 /* ---------------- Music toggle ---------------- */
@@ -513,7 +512,10 @@ footer {
 
   footer { padding: 34px 20px calc(90px + env(safe-area-inset-bottom)); }
 
-  #music-toggle { width: 44px; height: 44px; font-size: 1.1rem; }
+  #music-toggle {
+    width: 44px; height: 44px; font-size: 1.1rem;
+    bottom: calc(74px + env(safe-area-inset-bottom));
+  }
 }
 
 @media (max-width: 420px) {

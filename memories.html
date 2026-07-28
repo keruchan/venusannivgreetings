@@ -28,7 +28,10 @@
     <header class="mem-header">
       <a href="index.html" class="mem-back">&larr; Back</a>
       <h1>Our Memories</h1>
-      <button id="mem-autoplay" class="mem-icon-btn" title="Autoplay slideshow">▶</button>
+      <div class="mem-header-icons">
+        <button id="music-toggle" class="mem-icon-btn" title="Play our song">🎵</button>
+        <button id="mem-autoplay" class="mem-icon-btn" title="Autoplay slideshow">▶</button>
+      </div>
     </header>
 
     <div class="mem-stage" id="mem-stage">
@@ -59,8 +62,12 @@
     </footer>
   </div>
 
+  <!-- same background song as the main page, picks up right where it left off -->
+  <audio id="bg-music" src="audio/song.mp3"></audio>
+
   <script src="js/balloons.js"></script>
   <script src="js/particles.js"></script>
+  <script src="js/music.js"></script>
   <script src="js/memories.js"></script>
 </body>
 </html>

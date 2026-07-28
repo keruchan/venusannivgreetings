@@ -51,6 +51,10 @@ body.memories-page {
   transition: transform 0.2s ease;
 }
 .mem-back:hover { transform: translateX(-3px); }
+.mem-header-icons {
+  flex: 0 0 auto;
+  display: flex; align-items: center; gap: 8px;
+}
 .mem-icon-btn {
   flex: 0 0 auto;
   width: 40px; height: 40px; border-radius: 50%; border: none;
@@ -60,6 +64,15 @@ body.memories-page {
 }
 .mem-icon-btn:hover { transform: scale(1.08); }
 .mem-icon-btn.active { background: var(--pink-3); color: #fff; }
+
+/* the site-wide #music-toggle is normally a floating fixed button (see
+   style.css) — here it lives inline in the header instead, so it doesn't
+   float over the thumbnail strip in this fixed, no-scroll layout */
+#music-toggle {
+  position: static;
+  width: 40px; height: 40px;
+  font-size: 0.9rem;
+}
 
 /* ---------------- Stage ---------------- */
 .mem-stage {
@@ -184,9 +197,11 @@ body.memories-page {
 
 /* ---------------- Small / short screens ---------------- */
 @media (max-width: 480px) {
-  .mem-header { padding: 14px 14px 6px; }
-  .mem-header h1 { font-size: 1.3rem; }
+  .mem-header { padding: 14px 10px 6px; gap: 6px; }
+  .mem-header h1 { font-size: 1.1rem; }
   .mem-back { padding: 7px 12px; font-size: 0.78rem; }
+  .mem-header-icons { gap: 6px; }
+  .mem-icon-btn, #music-toggle { width: 34px; height: 34px; font-size: 0.78rem; }
   .mem-stage { padding: 6px 6px; gap: 6px; }
   .mem-frame { padding: 10px 10px 0; }
   .mem-tape { width: 56px; height: 22px; }
